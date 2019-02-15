@@ -1,3 +1,22 @@
+
+
+function buildUrl(apiController, apiAction, apiParameters) {
+	
+    if (!apiController) {
+        throw 'A controller name must be specified.';
+    }
+	
+   if (!apiAction) {
+        throw 'An action name must be specified.';
+    }
+	
+	var urlComponents = [location.protocol.concat('//'), window.location.hostname];
+	var parameters = { apiController: apiController, apiAction: apiAction};
+	for(var p in apiParameters) parameters[p] = apiParameters[p];
+	
+    return urlComponents.join('/') + buildQueryString(parameters);
+}
+
 function buildQueryString(object) {
     var queryString = '';
     for (var property in object) {
@@ -12,28 +31,4 @@ function buildQueryString(object) {
         }
     }
     return queryString;
-}
-
-function buildUrl(controller, action, parameters) {
-    var url = basePath + '/WebApiClient';
-    var urlComponents = [url];
-    if (!controller) {
-        throw 'A controller name must be specified.';
-    }
-	
-   if (!action) {
-        throw 'An action name must be specified.';
-    }
-
-    if (parameters) {
-        parameters.apiController = controller;
-        parameters.apiAction = action;
-    } else {
-        parameters = {
-            apiController: controller,
-            apiAction: action
-        };
-    }
-
-    return urlComponents.join('/') + buildQueryString(parameters);
 }
