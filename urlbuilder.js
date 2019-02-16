@@ -1,20 +1,13 @@
-
-
 function buildUrl(apiController, apiAction, apiParameters) {
 	
-    if (!apiController) {
-        throw 'A controller name must be specified.';
-    }
-	
-   if (!apiAction) {
-        throw 'An action name must be specified.';
-    }
+    if (!apiController) throw 'A controller name must be specified.';
+	if (!apiAction)  throw 'An action name must be specified.';
 	
 	var urlComponents = [location.protocol.concat('//'), window.location.hostname];
 	var parameters = { apiController: apiController, apiAction: apiAction};
 	for(var p in apiParameters) parameters[p] = apiParameters[p];
 	
-    return urlComponents.join('/') + buildQueryString(parameters);
+	return urlComponents.join('/') + buildQueryString(parameters);
 }
 
 function buildQueryString(object) {
