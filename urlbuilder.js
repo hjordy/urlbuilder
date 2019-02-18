@@ -1,13 +1,26 @@
-function buildUrl(apiController, apiAction, apiParameters) {
+function buildUrl(parameters, clientController, clientAction, apiController, apiAction, location) {
 	
-    if (!apiController) throw 'A controller name must be specified.';
-	if (!apiAction)  throw 'An action name must be specified.';
-	
-	var urlComponents = [location.protocol.concat('//'), window.location.hostname];
-	var parameters = { apiController: apiController, apiAction: apiAction};
-	for(var p in apiParameters) parameters[p] = apiParameters[p];
-	
-	return urlComponents.join('/') + buildQueryString(parameters);
+	var urlComponents = [];
+    
+    if(location){
+    	urlComponents.push(location);
+    }
+	else
+    {
+    	var location = [window.location.protocol, '//', window.location.hostname];        
+    	urlComponents.push(location.join(''));
+    }
+    
+    if(clientController) urlComponents.push(clientController);
+    if(clientController && clientAction) urlComponents.push(clientAction);
+    
+   var params = {};
+   
+   if(apiController) params.apiController = apiController;
+   if(apiController && apiAction) params.apiAction = apiAction;
+   for(var p in parameters) params[p] = parameters[p];
+   
+   return urlComponents.join('/') + buildQueryString(params);
 }
 
 function buildQueryString(object) {
@@ -25,3 +38,4 @@ function buildQueryString(object) {
     }
     return queryString;
 }
+docu
