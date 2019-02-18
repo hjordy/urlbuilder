@@ -1,7 +1,6 @@
 function buildUrl(parameters, clientController, clientAction, apiController, apiAction, location) {
-	
 	var urlComponents = [];
-    
+	
     if(location){
     	urlComponents.push(location);
     }
@@ -15,7 +14,6 @@ function buildUrl(parameters, clientController, clientAction, apiController, api
     if(clientController && clientAction) urlComponents.push(clientAction);
     
    var params = {};
-   
    if(apiController) params.apiController = apiController;
    if(apiController && apiAction) params.apiAction = apiAction;
    for(var p in parameters) params[p] = parameters[p];
@@ -38,4 +36,3 @@ function buildQueryString(object) {
     }
     return queryString;
 }
-docu
